@@ -446,6 +446,8 @@ class JHoliday:
         yield datetime.date(1989, 2, 24), '昭和天皇の大喪の礼'
         yield datetime.date(1990, 11, 12), '即位礼正殿の儀'
         yield datetime.date(1993, 6, 9), '皇太子徳仁親王の結婚の儀'
+        yield datetime.date(2019, 5, 1), '即位の日'
+        yield datetime.date(2019, 10, 22), '即位礼正殿の儀'
 
     def special(self):
         """その年限りの休日
