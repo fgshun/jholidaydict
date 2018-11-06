@@ -105,6 +105,7 @@ DATE_09 = datetime.date(2020, 1, 1)
 
 class JHoliday(collections.abc.Mapping):
     def __init__(self, min_date=DATE_00, max_date=datetime.date(2150, 12, 31)):
+        """min_date から max_date までの祝日をまとめる"""
         self.min_date = min_date
         self.max_date = max_date
         self._holidays_dict = None
@@ -115,7 +116,8 @@ class JHoliday(collections.abc.Mapping):
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
             return NotImplemented
-        return (self.min_date, self.max_date) == (other.min_date, other.max_date)
+        return (self.min_date, self.max_date) == \
+               (other.min_date, other.max_date)
 
     def __getitem__(self, key):
         return self._holidays[key]
@@ -154,6 +156,7 @@ class JHoliday(collections.abc.Mapping):
 
     @classmethod
     def from_year(cls, min_year=DATE_00.year, max_year=2150):
+        """min_year 年始から max_year 年末までの祝日をまとめる"""
         min_date = datetime.date(min_year, 1, 1)
         max_date = datetime.date(max_year, 12, 31)
         return cls(min_date, max_date)
