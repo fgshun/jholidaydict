@@ -4,7 +4,7 @@ py_modules = ['jholidaydict', 'test_jholidaydict']
 
 setup(
         name='jholidaydict',
-        version='0.1.0',
+        version='0.2.0',
         author='fgshun',
         author_email='fgshun@gmail.com',
         url='http://www.lazy-moon.jp/',
