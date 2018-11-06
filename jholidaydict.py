@@ -17,6 +17,7 @@ http://eco.mtk.nao.ac.jp/koyomi/yoko/appendix.html#holiday
 http://eco.mtk.nao.ac.jp/koyomi/topics/html/topics2009_3.html
 """
 
+import collections.abc
 import datetime
 import functools
 import itertools
@@ -102,10 +103,54 @@ DATE_TT = datetime.date(2019, 5, 1)
 DATE_09 = datetime.date(2020, 1, 1)
 
 
-class JHoliday:
+class JHoliday(collections.abc.Mapping):
     def __init__(self, min_date=DATE_00, max_date=datetime.date(2150, 12, 31)):
         self.min_date = min_date
         self.max_date = max_date
+        self._holidays_dict = None
+
+    def __contains__(self, key):
+        return key in self._holidays
+
+    def __eq__(self, other):
+        if not isinstance(other, self.__class__):
+            return NotImplemented
+        return (self.min_date, self.max_date) == (other.min_date, other.max_date)
+
+    def __getitem__(self, key):
+        return self._holidays[key]
+
+    def __iter__(self):
+        return iter(self._holidays)
+
+    def __len__(self):
+        return len(self._holidays)
+
+    @property
+    def _holidays(self):
+        if self._holidays_dict is None:
+            holidays = dict(itertools.chain(self.ganjitsu(),
+                                            self.seijinnohi(),
+                                            self.kenkokukinennohi(),
+                                            self.shunbunnohi(),
+                                            self.showanohi(),
+                                            self.kenpokinenbi(),
+                                            self.midorinohi(),
+                                            self.kodomonohi(),
+                                            self.uminohi(),
+                                            self.yamanohi(),
+                                            self.keironohi(),
+                                            self.shubunnohi(),
+                                            self.supotsunohi(),
+                                            self.taikunohi(),
+                                            self.bunkanohi(),
+                                            self.kinrokanshanohi(),
+                                            self.tennotanjobi(),
+                                            self.special(),
+                                            ))
+            holidays.update(self.kokuminnokyujitsu(dict(holidays)))
+            self._holidays_dict = holidays
+        return self._holidays_dict
 
     @classmethod
     def from_year(cls, min_year=DATE_00.year, max_year=2150):
@@ -509,26 +554,3 @@ class JHoliday:
                         if one not in holidays and one.weekday() != 6 and \
                            one <= self.max_date:
                             yield one, kokuminno
-
-    def make_dict(self):
-        holidays = dict(itertools.chain(self.ganjitsu(),
-                                        self.seijinnohi(),
-                                        self.kenkokukinennohi(),
-                                        self.shunbunnohi(),
-                                        self.showanohi(),
-                                        self.kenpokinenbi(),
-                                        self.midorinohi(),
-                                        self.kodomonohi(),
-                                        self.uminohi(),
-                                        self.yamanohi(),
-                                        self.keironohi(),
-                                        self.shubunnohi(),
-                                        self.supotsunohi(),
-                                        self.taikunohi(),
-                                        self.bunkanohi(),
-                                        self.kinrokanshanohi(),
-                                        self.tennotanjobi(),
-                                        self.special(),
-                                        ))
-        holidays.update(self.kokuminnokyujitsu(dict(holidays)))
-        return holidays

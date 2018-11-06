@@ -7,7 +7,7 @@ import jholidaydict
 
 def test_holiday2018():
     D = datetime.date
-    H = jholidaydict.JHoliday.from_year(2018, 2018).make_dict().get
+    H = jholidaydict.JHoliday.from_year(2018, 2018).get
 
     assert H(D(2018, 1, 1)) == '元日'
     assert H(D(2018, 1, 8)) == '成人の日'
@@ -39,22 +39,22 @@ def test_holiday2018():
 def test_jholiday_init():
     D = datetime.date
 
-    jholiday0 = jholidaydict.JHoliday(D(2018, 1, 1), D(2018, 1, 8)).make_dict()
+    jholiday0 = jholidaydict.JHoliday(D(2018, 1, 1), D(2018, 1, 8))
     assert jholiday0.get(D(2018, 1, 1)) == '元日'
     assert jholiday0.get(D(2018, 1, 8)) == '成人の日'
     assert len(jholiday0) == 2
 
-    jholiday1 = jholidaydict.JHoliday(D(2018, 1, 2), D(2018, 1, 8)).make_dict()
+    jholiday1 = jholidaydict.JHoliday(D(2018, 1, 2), D(2018, 1, 8))
     assert jholiday1.get(D(2018, 1, 1)) is None
     assert jholiday1.get(D(2018, 1, 8)) == '成人の日'
     assert len(jholiday1) == 1
 
-    jholiday2 = jholidaydict.JHoliday(D(2018, 1, 1), D(2018, 1, 7)).make_dict()
+    jholiday2 = jholidaydict.JHoliday(D(2018, 1, 1), D(2018, 1, 7))
     assert jholiday2.get(D(2018, 1, 1)) == '元日'
     assert jholiday2.get(D(2018, 1, 8)) is None
     assert len(jholiday2) == 1
 
-    jholiday3 = jholidaydict.JHoliday(D(2018, 1, 2), D(2018, 1, 7)).make_dict()
+    jholiday3 = jholidaydict.JHoliday(D(2018, 1, 2), D(2018, 1, 7))
     assert jholiday3.get(D(2018, 1, 1)) is None
     assert jholiday3.get(D(2018, 1, 8)) is None
     assert len(jholiday3) == 0
@@ -64,8 +64,7 @@ def test_diff_cjholiday():
     cjholiday = pytest.importorskip('cjholiday')
 
     jholiday = jholidaydict.JHoliday()
-    jholiday_dict = jholiday.make_dict()
     for date in jholiday.iter_all_dates():
         assert \
-            jholiday_dict.get(date) == \
+            jholiday.get(date) == \
             cjholiday.holiday_name(date=date)
