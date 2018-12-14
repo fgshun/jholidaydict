@@ -6,6 +6,7 @@ import jholidaydict
 
 
 def test_holiday2018():
+    """平成30年(2018)暦要項と比較"""
     D = datetime.date
     H = jholidaydict.JHoliday.from_year(2018, 2018).get
 
@@ -16,7 +17,6 @@ def test_holiday2018():
     assert H(D(2018, 4, 29)) == '昭和の日'
     assert H(D(2018, 5, 3)) == '憲法記念日'
     assert H(D(2018, 5, 4)) == 'みどりの日'
-    assert H(D(2018, 5, 5)) == 'こどもの日'
     assert H(D(2018, 5, 5)) == 'こどもの日'
     assert H(D(2018, 7, 16)) == '海の日'
     assert H(D(2018, 8, 11)) == '山の日'
@@ -34,6 +34,39 @@ def test_holiday2018():
 
     assert H(D(2017, 1, 1)) is None
     assert H(D(2019, 1, 1)) is None
+
+
+def test_holiday2019():
+    """平成31年(2019)暦要項と比較"""
+    D = datetime.date
+    H = jholidaydict.JHoliday.from_year(2019, 2019).get
+
+    assert H(D(2019, 1, 1)) == '元日'
+    assert H(D(2019, 1, 14)) == '成人の日'
+    assert H(D(2019, 2, 11)) == '建国記念の日'
+    assert H(D(2019, 3, 21)) == '春分の日'
+    assert H(D(2019, 4, 29)) == '昭和の日'
+    assert H(D(2019, 5, 1)) == '即位の日'
+    assert H(D(2019, 5, 3)) == '憲法記念日'
+    assert H(D(2019, 5, 4)) == 'みどりの日'
+    assert H(D(2019, 5, 5)) == 'こどもの日'
+    assert H(D(2019, 7, 15)) == '海の日'
+    assert H(D(2019, 8, 11)) == '山の日'
+    assert H(D(2019, 9, 16)) == '敬老の日'
+    assert H(D(2019, 9, 23)) == '秋分の日'
+    assert H(D(2019, 10, 14)) == '体育の日'
+    assert H(D(2019, 10, 22)) == '即位礼正殿の儀'
+    assert H(D(2019, 11, 3)) == '文化の日'
+    assert H(D(2019, 11, 23)) == '勤労感謝の日'
+
+    assert H(D(2019, 4, 30)) == '国民の休日'
+    assert H(D(2019, 5, 2)) == '国民の休日'
+    assert H(D(2019, 5, 6)) == '振替休日'
+    assert H(D(2019, 8, 12)) == '振替休日'
+    assert H(D(2019, 11, 4)) == '振替休日'
+
+    assert H(D(2018, 1, 1)) is None
+    assert H(D(2020, 1, 1)) is None
 
 
 def test_jholiday_init():

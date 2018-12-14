@@ -1,12 +1,12 @@
-"""Python で日本の祝日 dict
+"""日本の祝日・休日一覧
 
-日本の祝日を収めたハッシュテーブル (dict) を作る。
+日本の祝日を収めたハッシュテーブルを作る。
 「国民の祝日に関する法律」による休日も含む。
 
 法の改正履歴がコードから読み取れるものを目指す。
 そのため速度、メモリ効率は度外視。
 
-情報元。ともに 2018-10-08 時点の内容をもとに実装。
+情報元。ともに 2018-12-15 時点の内容をもとに実装。
 e-Gov 法令検索 - 国民の祝日に関する法律
 http://elaws.e-gov.go.jp/search/elawsSearch/elaws_search/lsg0500/detail?lawId=323AC1000000178
 
@@ -17,11 +17,15 @@ http://eco.mtk.nao.ac.jp/koyomi/yoko/appendix.html#holiday
 http://eco.mtk.nao.ac.jp/koyomi/topics/html/topics2009_3.html
 """
 
+__version__ = '0.3.0'
+
 import collections.abc
 import datetime
 import functools
 import itertools
 import operator
+
+VERSION = tuple(map(int, __version__.split('.')))
 
 # 祝日の変遷
 
@@ -68,7 +72,7 @@ DATE_HM = datetime.date(2000, 1, 1)
 # 第六次改正
 # 月曜を祝日にする法律ふたつめ。
 # 対象は海の日(7月第3月曜)と敬老の日(9月第3月曜)。
-# このときまで 05-04 専用であった振替休日の規定が
+# このときまで 05-04 専用であった休日の規定が
 # 秋分の日が水曜日であったとき敬老の日との間の火曜日で有効になる可能性が生まれた。
 # 初回は 2009-09-22 。その後は 2015-09-22, 2026-09-22, 2032-09-23, 2037-09-22 と続く。
 # 暦計算室によると、 28 年に 4 回程度の頻度で現れるとのこと。
@@ -92,7 +96,14 @@ DATE_08 = datetime.date(2016, 1, 1)
 # それぞれ 07-23, 07-24, 08-10 に移動される。
 DATE_TO = datetime.date(2018, 6, 20)
 
-# ここから 2018-10-09 現在未施行。
+# 「天皇の即位の日及び即位礼正殿の儀の行われる日を休日とする法律」
+# 2018-12-14 に施行された法律。
+# 天皇の即位の日 2019-05-01 と即位礼正殿の儀が行われる日 2019-10-22 が休日になる。
+# さらに、この 2 つの休日は祝日扱いで「前日及び翌日が国民の祝日である日」の規定が適用される。
+# つまり 2019-04-30, 2019-05-02 も休日となる。
+DATE_TS = datetime.date(2018, 12, 14)
+
+# ここから 2018-12-15 現在未施行。
 # 「天皇の退位等に関する皇室典範特例法」と
 # 「天皇の退位などに関する皇室典範特例法の施行期日を定める政令」
 # 新元号における元年。天皇誕生日が 12-23 から 02-23 へ移動。
@@ -109,6 +120,13 @@ class JHoliday(collections.abc.Mapping):
         self.min_date = min_date
         self.max_date = max_date
         self._holidays_dict = None
+
+    @classmethod
+    def from_year(cls, min_year=DATE_00.year, max_year=2150):
+        """min_year 年始から max_year 年末までの祝日をまとめる"""
+        min_date = datetime.date(min_year, 1, 1)
+        max_date = datetime.date(max_year, 12, 31)
+        return cls(min_date, max_date)
 
     def __contains__(self, key):
         return key in self._holidays
@@ -153,13 +171,6 @@ class JHoliday(collections.abc.Mapping):
             holidays.update(self.kokuminnokyujitsu(dict(holidays)))
             self._holidays_dict = holidays
         return self._holidays_dict
-
-    @classmethod
-    def from_year(cls, min_year=DATE_00.year, max_year=2150):
-        """min_year 年始から max_year 年末までの祝日をまとめる"""
-        min_date = datetime.date(min_year, 1, 1)
-        max_date = datetime.date(max_year, 12, 31)
-        return cls(min_date, max_date)
 
     @staticmethod
     def _sorted_dates_filter(it, min_date, max_date):
@@ -500,7 +511,7 @@ class JHoliday(collections.abc.Mapping):
     def special(self):
         """その年限りの休日
 
-        既存の 4 つはいずれも皇室関連の慶長行事に関するもの。
+        既存の 6 つはいずれも皇室関連の慶長行事に関するもの。
         """
         return self._holidays_filter(
             self._special(), self.min_date, self.max_date)
