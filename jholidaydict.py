@@ -17,7 +17,7 @@ http://eco.mtk.nao.ac.jp/koyomi/yoko/appendix.html#holiday
 http://eco.mtk.nao.ac.jp/koyomi/topics/html/topics2009_3.html
 """
 
-__version__ = '0.3.0'
+__version__ = '0.3.1'
 
 import collections.abc
 import datetime
