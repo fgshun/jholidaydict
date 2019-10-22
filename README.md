@@ -8,20 +8,22 @@
 それによって各祝日にどのような変化があったのかの説明を入れてある。
 
 ```
->>> import datetime
-
 >>> import jholidaydict
 
->>> jholiday = jholidaydict.JHoliday.from_year(2018, 2020)
+>>> import collections.abc
 
->>> jholiday.get(datetime.date(2020, 7, 24))
+>>> issubclass(jholidaydict.JHoliday, collections.abc.Mapping)
+True
+
+>>> import datetime
+
+>>> d = jholidaydict.JHoliday.from_year(2019, 2021)
+
+>>> d.get(datetime.date(2020, 7, 24))
 'スポーツの日'
 
->>> min(jholiday)
-datetime.date(2018, 1, 1)
-
->>> max(jholiday)
-datetime.date(2020, 11, 23)
+>>> min(d), max(d)
+(datetime.date(2019, 1, 1), datetime.date(2021, 11, 23))
 ```
 
 ## 情報元
