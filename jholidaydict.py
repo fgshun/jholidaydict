@@ -161,7 +161,7 @@ class JHoliday(collections.abc.Mapping):
                                             self.yamanohi(),
                                             self.keironohi(),
                                             self.shubunnohi(),
-                                            self.supotsunohi(),
+                                            self.sports_nohi(),
                                             self.taikunohi(),
                                             self.bunkanohi(),
                                             self.kinrokanshanohi(),
@@ -425,7 +425,7 @@ class JHoliday(collections.abc.Mapping):
                 yield dt.date(), h
                 dt += delta
 
-    def supotsunohi(self):
+    def sports_nohi(self):
         """スポーツの日
 
         10 月 第 2 月曜はかつて体育の日だった。
