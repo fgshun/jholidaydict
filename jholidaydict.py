@@ -17,7 +17,7 @@ http://eco.mtk.nao.ac.jp/koyomi/yoko/appendix.html#holiday
 http://eco.mtk.nao.ac.jp/koyomi/topics/html/topics2009_3.html
 """
 
-__version__ = '0.3.1'
+__version__ = '0.3.2'
 
 import collections.abc
 import datetime
@@ -353,6 +353,8 @@ class JHoliday(collections.abc.Mapping):
 
         1996 年より 07-20 として追加。
         2003 年より 7 月第 3 月曜に変更。
+        2020 年はオリンピック特措法により 07-23 へ移動。
+        2021 年はオリンピック特措法により 07-22 へ移動。
         """
         h = '海の日'
 
@@ -362,26 +364,34 @@ class JHoliday(collections.abc.Mapping):
 
         it = self.iter_nth_monday(7, 3)
         it = self._sorted_dates_filter(it, DATE_06, None)
-        yield from ((date, h) for date in it if date.year != 2020)
+        yield from ((date, h) for date in it if date.year not in (2020, 2021))
 
         d2020 = datetime.date(2020, 7, 23)
         if self.min_date <= d2020 <= self.max_date:
             yield d2020, h
+        d2021 = datetime.date(2021, 7, 22)
+        if self.min_date <= d2021 <= self.max_date:
+            yield d2021, h
 
     def yamanohi(self):
         """山の日
 
         2016 年より 07-20 として追加。
+        2020 年はオリンピック特措法により 08-10 へ移動。
+        2021 年はオリンピック特措法により 08-08 へ移動。
         """
         h = '山の日'
 
         it = self.iter_dates(8, 11)
         it = self._sorted_dates_filter(it, DATE_08, None)
-        yield from ((date, h) for date in it if date.year != 2020)
+        yield from ((date, h) for date in it if date.year not in (2020, 2021))
 
         d2020 = datetime.date(2020, 8, 10)
         if self.min_date <= d2020 <= self.max_date:
             yield d2020, h
+        d2021 = datetime.date(2021, 8, 8)
+        if self.min_date <= d2021 <= self.max_date:
+            yield d2021, h
 
     def keironohi(self):
         """敬老の日
@@ -430,16 +440,21 @@ class JHoliday(collections.abc.Mapping):
 
         10 月 第 2 月曜はかつて体育の日だった。
         2020 年より体育の日と入れ変わる形で現れた。
+        2020 年はオリンピック特措法により 07-24 へ移動。
+        2021 年はオリンピック特措法により 07-23 へ移動。
         """
         h = 'スポーツの日'
 
         it = self.iter_nth_monday(10, 2)
         it = self._sorted_dates_filter(it, DATE_09, None)
-        yield from ((date, h) for date in it if date.year != 2020)
+        yield from ((date, h) for date in it if date.year not in (2020, 2021))
 
         d2020 = datetime.date(2020, 7, 24)
         if self.min_date <= d2020 <= self.max_date:
             yield d2020, h
+        d2021 = datetime.date(2021, 7, 23)
+        if self.min_date <= d2021 <= self.max_date:
+            yield d2021, h
 
     def taikunohi(self):
         """体育の日
