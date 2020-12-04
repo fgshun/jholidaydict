@@ -26,14 +26,12 @@ True
 (datetime.date(2019, 1, 1), datetime.date(2021, 11, 23))
 ```
 
-## 情報元
+## 情報源
 - [e-Gov 法令検索 - 国民の祝日に関する法律](https://elaws.e-gov.go.jp/document?lawid=323AC1000000178)
 - [国立天文台 - 暦計算室 - 暦要項 備考２：国民の祝日の変遷と暦要項](https://eco.mtk.nao.ac.jp/koyomi/yoko/appendix.html#holiday)
 - [国立天文台 - 暦計算室 - 国民の祝日と休日](https://eco.mtk.nao.ac.jp/koyomi/topics/html/topics2009_3.html)
 
 ## API
-- `DATE_00`
-  - 「国民の祝日に関する法律」施行日。 `datetime.date(1948, 7, 23)`
 - `JHoliday.__init__(min_date=DATE_00, max_date=datetime.date(2150, 12, 31))`
   - min\_date から max\_date までの祝日をまとめた JHoliday インスタンスを作る。
 - `classmethod JHoliday.from_year(min_year=DATE_00.year, max_year=2150)`
