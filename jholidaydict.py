@@ -6,9 +6,9 @@
 法の改正履歴がコードから読み取れるものを目指す。
 そのため速度、メモリ効率は度外視。
 
-情報元。ともに 2019-10-22 時点の内容をもとに実装。
+情報源。ともに 2020-12-04 時点の内容をもとに実装。
 e-Gov 法令検索 - 国民の祝日に関する法律
-http://elaws.e-gov.go.jp/search/elawsSearch/elaws_search/lsg0500/detail?lawId=323AC1000000178
+https://elaws.e-gov.go.jp/document?lawid=323AC1000000178
 
 国立天文台 - 暦計算室 - 暦要項 備考２：国民の祝日の変遷と暦要項
 http://eco.mtk.nao.ac.jp/koyomi/yoko/appendix.html#holiday

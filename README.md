@@ -27,7 +27,7 @@ True
 ```
 
 ## 情報元
-- [e-Gov 法令検索 - 国民の祝日に関する法律](https://elaws.e-gov.go.jp/search/elawsSearch/elaws_search/lsg0500/detail?lawId=323AC1000000178)
+- [e-Gov 法令検索 - 国民の祝日に関する法律](https://elaws.e-gov.go.jp/document?lawid=323AC1000000178)
 - [国立天文台 - 暦計算室 - 暦要項 備考２：国民の祝日の変遷と暦要項](https://eco.mtk.nao.ac.jp/koyomi/yoko/appendix.html#holiday)
 - [国立天文台 - 暦計算室 - 国民の祝日と休日](https://eco.mtk.nao.ac.jp/koyomi/topics/html/topics2009_3.html)
 
